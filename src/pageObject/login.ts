@@ -25,7 +25,7 @@ export class Login {
     this.greetingTextToUser = page.locator("#username");
     this.logutButton = page.getByRole("link",{name:"Logout"});
     this.logutSuccessMessage = page.getByText("You logged out of the secure area!");
-     this.wrongCredsMessage = page.getByText("Your password is invalid!");
+     this.wrongCredsMessage = page.locator("#flash");
   }
 
   public async verifyWelcomeText(expected: string) {

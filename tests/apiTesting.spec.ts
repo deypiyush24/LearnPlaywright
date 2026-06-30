@@ -1,7 +1,7 @@
 import { test, request, expect } from "@playwright/test";
 import { Logger } from "../src/utils/log";
 
-test.describe.configure({ mode: "serial" }); // This Feature hekp to control complete test Suit in Strict serial mode
+test.describe.configure({ mode: "serial" }); // This Feature help to control complete test Suit in Strict serial mode
 let authToken: string;
 let name: string;
 let emailId: string;

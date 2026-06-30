@@ -29,8 +29,8 @@ test("Verify The Successfull Login", async ({ page }) => {
   const passwordText = await page
     .getByText("Password: SuperSecretPassword!", { exact: true })
     .textContent();
-  const userName = userNameText!.split(":")[1].trim(); // Here Values should be not null
-  const password = passwordText!.split(":")[1].trim(); // Here Values should be not null
+  const userName = userNameText!.split(":")[1].trim(); // ! assert that Values should be not null
+  const password = passwordText!.split(":")[1].trim(); // ! assert that Values should be not null
 
   await loginPage.enterTheUserNameAndPassword(userName, password);
   await loginPage.clickOnTheLoginButton();
@@ -38,6 +38,29 @@ test("Verify The Successfull Login", async ({ page }) => {
     "You logged into a secure area!",
     userName,
   );
+
+ 
+
+// Here Taking screenShot putting in folder path provided
+// 1. Take the screenshot and save it to a file
+ const screenshotPath:string = "screenshot.png";
+  await page.screenshot({ path: screenshotPath })
+
+  // 2. Attach the saved file directly to the test report
+  await test.info().attach('Secure Area', 
+    {
+    path: screenshotPath,
+    contentType: 'image/png'}
+  )
+
+  // Locator level which Not recommemded :Just put locator in front of screen shot
+  // await page.locator().screenshot({pass: information})
+
+  // Visual Regression : 
+  await expect(page.screenshot()).toMatchSnapshot();
+
+
+
   await loginPage.logutOfTheApplication();
 });
 
@@ -72,30 +95,3 @@ test(`@invalidPassword Invalid Password`, async ({ page }) => {
   );
 });
 
-loginTestData.forEach((testData) => {
-  test(`@Login Login Verification: ${testData.scenario}`, async ({
-    page,
-  }) => {
-    await test.step("When they enter valid credentials", async () => {
-      await loginPage.enterTheUserNameAndPassword(
-        testData.username,
-        testData.password,
-      );
-      await loginPage.clickOnTheLoginButton();
-    });
-
-    await test.step("Then they see the Message", async () => {
-      if (testData.scenario == "Valid credentials") {
-        await loginPage.verifyTheLoginPageText(
-          testData.expectedMessage,
-          testData.username,
-        );
-        await loginPage.logutOfTheApplication();
-      } else {
-        await loginPage.verifyTheAlertForWrongCredentials(
-          testData.expectedMessage,
-        );
-      }
-    });
-  });
-});

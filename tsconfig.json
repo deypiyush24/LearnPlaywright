@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["node", "@playwright/test"]
+    "types": ["node", "@playwright/test","@types/pg"]
   },
   "include": ["tests", "src", "playwright.config.ts", "playwright.service.config.ts"],
   "exclude": ["node_modules"]

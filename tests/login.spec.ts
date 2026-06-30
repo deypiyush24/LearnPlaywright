@@ -1,7 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { ColourCode } from "../src/utils/colourCode";
 import { Login } from "../src/pageObject/login";
-import { CommonUtils } from "../src/utils/commonUtils";
 import { Constants } from "../src/utils/constants";
 import { Logger } from "../src/utils/log";
 import { loginTestData } from "../src/testData/loginData";
@@ -63,7 +61,10 @@ test(`@invalidPassword Invalid Password`, async ({ page }) => {
     .getByText("Username: practice", { exact: true })
     .textContent();
   const userName = userNameText!.split(":")[1].trim(); // Here Values should be not null
-  const password = "WrongPassword";
+  let password:string =""; 
+  loginTestData.forEach( (eachTestData)=> { if (eachTestData.scenario =="Invalid password" )
+  {password = eachTestData.password}
+  })
   await loginPage.enterTheUserNameAndPassword(userName, password);
   await loginPage.clickOnTheLoginButton();
   await loginPage.verifyTheAlertForWrongCredentials(
@@ -72,7 +73,7 @@ test(`@invalidPassword Invalid Password`, async ({ page }) => {
 });
 
 loginTestData.forEach((testData) => {
-  test.only(`@Login Login Verification: ${testData.scenario}`, async ({
+  test(`@Login Login Verification: ${testData.scenario}`, async ({
     page,
   }) => {
     await test.step("When they enter valid credentials", async () => {

@@ -1,0 +1,204 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: login.spec.ts >> Verify The Successfull Login
+- Location: tests/login.spec.ts:24:5
+
+# Error details
+
+```
+Error: An unresolved Promise was passed to toMatchSnapshot(), make sure to resolve it by adding await to it.
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - paragraph [ref=e3]:
+    - link "PMP Practice" [ref=e4] [cursor=pointer]:
+      - /url: https://pmp.expandtesting.com/
+    - text: "| Free PMP Certification Mock Exam Test +900 Questions & Quizzes"
+  - banner [ref=e6]:
+    - navigation "Main navigation" [ref=e7]:
+      - link "SUT" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - 'img "Best Website for Practice Automation Testing: Free UI and REST API Examples and Apps. Using Cypress, Playwright, Selenium, WebdriverIO and Postman." [ref=e9]'
+        - text: Practice
+      - generic [ref=e10]:
+        - list [ref=e11]:
+          - listitem [ref=e12]:
+            - button "Demos" [ref=e13] [cursor=pointer]
+          - listitem [ref=e14]:
+            - link "Tools" [ref=e15] [cursor=pointer]:
+              - /url: /#tools
+          - listitem [ref=e16]:
+            - link "Tips" [ref=e17] [cursor=pointer]:
+              - /url: /tips
+          - listitem [ref=e18]:
+            - link "Test Cases" [ref=e19] [cursor=pointer]:
+              - /url: /test-cases
+          - listitem [ref=e20]:
+            - link "API Testing" [ref=e21] [cursor=pointer]:
+              - /url: /notes/api/api-docs/
+          - listitem [ref=e22]:
+            - link "About" [ref=e23] [cursor=pointer]:
+              - /url: /about
+        - list
+        - link "Free ISTQB Mock Exams" [ref=e24] [cursor=pointer]:
+          - /url: https://istqb.expandtesting.com/
+  - main [ref=e25]:
+    - insertion [ref=e29]:
+      - generic [ref=e32]:
+        - heading "These are topics related to the article that might interest you" [level=2] [ref=e34]: Discover more
+        - link "Automation consulting service" [ref=e35] [cursor=pointer]:
+          - generic "Automation consulting service" [ref=e36]
+          - img [ref=e38]
+        - link "Automation testing software" [ref=e40] [cursor=pointer]:
+          - generic "Automation testing software" [ref=e41]
+          - img [ref=e43]
+        - link "Internet & Telecom" [ref=e45] [cursor=pointer]:
+          - generic "Internet & Telecom" [ref=e46]
+          - img [ref=e48]
+    - alert [ref=e53]:
+      - text: You logged into a secure area!
+      - button "Close" [ref=e54] [cursor=pointer]
+    - paragraph [ref=e56]:
+      - text: Do you enjoy this platform? ❤️
+      - link "Buy us a coffee" [ref=e57] [cursor=pointer]:
+        - /url: https://www.buymeacoffee.com/expandtesting
+    - generic [ref=e58]:
+      - insertion [ref=e60]:
+        - iframe [ref=e62]:
+          
+      - generic [ref=e65]:
+        - navigation "breadcrumb mb-2" [ref=e66]:
+          - list [ref=e67]:
+            - listitem [ref=e68]:
+              - link "Home" [ref=e69] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e70]: / Secure Area
+        - heading "Secure Area page for Automation Testing Practice" [level=1] [ref=e71]
+        - heading "Hi, practice!" [level=3] [ref=e72]
+        - heading "Welcome to the Secure Area. When you are done click logout below." [level=4] [ref=e73]
+        - link "Logout" [ref=e74] [cursor=pointer]:
+          - /url: /logout
+      - insertion [ref=e76]:
+        - iframe [ref=e78]:
+          
+  - contentinfo [ref=e79]:
+    - generic [ref=e84]:
+      - heading "Practice Test Automation WebSite for Web UI and Rest API" [level=4] [ref=e85]
+      - paragraph [ref=e86]:
+        - text: "Version: e64cd80e | Copyright"
+        - link "Expand Testing" [ref=e87] [cursor=pointer]:
+          - /url: https://expandtesting.com/
+        - text: "2026"
+  - img [ref=e89] [cursor=pointer]
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from "@playwright/test";
+  2  | import { Login } from "../src/pageObject/login";
+  3  | import { Constants } from "../src/utils/constants";
+  4  | import { Logger } from "../src/utils/log";
+  5  | import { loginTestData } from "../src/testData/loginData";
+  6  | 
+  7  | let loginPage: Login;
+  8  | 
+  9  | test.beforeEach("Test Setup is done", async ({ page }) => {
+  10 |   const titleOfThePage: string =
+  11 |     "Test Login Page for Automation Testing Practice";
+  12 |   const welcomeText: string = "Test Login page for Automation Testing Practice";
+  13 |   const url: string = Constants.testLoginurl;
+  14 | 
+  15 |   await test.step("Given the user navigates to the login page", async () => {
+  16 |     await page.goto(url);
+  17 |     Logger.successinfo(`User navigate to URL : ${Constants.testLoginurl}`);
+  18 |     await expect(page).toHaveTitle(titleOfThePage);
+  19 |     loginPage = new Login(page);
+  20 |     await loginPage.verifyWelcomeText(welcomeText);
+  21 |   });
+  22 | });
+  23 | 
+  24 | test("Verify The Successfull Login", async ({ page }) => {
+  25 |   console.log(`${test.info().title} for the ${test.info().project.name}`);
+  26 |   const userNameText = await page
+  27 |     .getByText("Username: practice", { exact: true })
+  28 |     .textContent();
+  29 |   const passwordText = await page
+  30 |     .getByText("Password: SuperSecretPassword!", { exact: true })
+  31 |     .textContent();
+  32 |   const userName = userNameText!.split(":")[1].trim(); // ! assert that Values should be not null
+  33 |   const password = passwordText!.split(":")[1].trim(); // ! assert that Values should be not null
+  34 | 
+  35 |   await loginPage.enterTheUserNameAndPassword(userName, password);
+  36 |   await loginPage.clickOnTheLoginButton();
+  37 |   await loginPage.verifyTheLoginPageText(
+  38 |     "You logged into a secure area!",
+  39 |     userName,
+  40 |   );
+  41 | 
+  42 |  
+  43 | 
+  44 | // Here Taking screenShot putting in folder path provided
+  45 | // 1. Take the screenshot and save it to a file
+  46 |  const screenshotPath:string = "screenshot.png";
+  47 |   await page.screenshot({ path: screenshotPath })
+  48 | 
+  49 |   // 2. Attach the saved file directly to the test report
+  50 |   await test.info().attach('Secure Area', 
+  51 |     {
+  52 |     path: screenshotPath,
+  53 |     contentType: 'image/png'}
+  54 |   )
+  55 | 
+  56 |   // Locator level which Not recommemded :Just put locator in front of screen shot
+  57 |   // await page.locator().screenshot({pass: information})
+  58 | 
+  59 |   // Visual Regression : 
+> 60 |   await expect(page.screenshot()).toMatchSnapshot();
+     |                                   ^ Error: An unresolved Promise was passed to toMatchSnapshot(), make sure to resolve it by adding await to it.
+  61 | 
+  62 |   await loginPage.logutOfTheApplication();
+  63 | });
+  64 | 
+  65 | test(`@invalidUserName Invalid Username`, async ({ page }) => {
+  66 |   console.log(`${test.info().title} for the ${test.info().project.name}`);
+  67 |   const userName = "Piyush";
+  68 |   const passwordText = await page
+  69 |     .getByText("Password: SuperSecretPassword!", { exact: true })
+  70 |     .textContent();
+  71 |   const password = passwordText!.split(":")[1].trim(); // Here Values should be not null
+  72 |   await loginPage.enterTheUserNameAndPassword(userName, password);
+  73 |   await loginPage.clickOnTheLoginButton();
+  74 |   await loginPage.verifyTheAlertForWrongCredentials(
+  75 |     "Your password is invalid!",
+  76 |   );
+  77 | });
+  78 | 
+  79 | test(`@invalidPassword Invalid Password`, async ({ page }) => {
+  80 |   console.log(`${test.info().title} for the ${test.info().project.name}`);
+  81 |   const userNameText = await page
+  82 |     .getByText("Username: practice", { exact: true })
+  83 |     .textContent();
+  84 |   const userName = userNameText!.split(":")[1].trim(); // Here Values should be not null
+  85 |   let password:string =""; 
+  86 |   loginTestData.forEach( (eachTestData)=> { if (eachTestData.scenario =="Invalid password" )
+  87 |   {password = eachTestData.password}
+  88 |   })
+  89 |   await loginPage.enterTheUserNameAndPassword(userName, password);
+  90 |   await loginPage.clickOnTheLoginButton();
+  91 |   await loginPage.verifyTheAlertForWrongCredentials(
+  92 |     "Your password is invalid!",
+  93 |   );
+  94 | });
+  95 | 
+  96 | 
+```

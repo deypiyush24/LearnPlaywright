@@ -12,9 +12,7 @@ test("Successfull", async({page})=>
     const url:string = Constants.testWebInputURL;
     await page.goto(url);
     await expect(page).toHaveTitle(title);
-
     const welcomeText:string  ="Web inputs page for Automation Testing Practice";
-
     const webInputValue = new WebINPUT(page);
     await webInputValue.verifyWelcomeText(welcomeText);
 })
@@ -35,6 +33,18 @@ test(`@webInput WebInput: ${eachTestData.Scenario}`, async({page})=>
     await webInputValue.enterTheNumberTextAndPassword(eachTestData.InputNumber,eachTestData.InputText,eachTestData.Password);
 
 })
+})
+
+test(`@webInput WebInput:`, async({page,context})=> 
+{
+    console.log(test.info().title + test.info().project.name);
+    const title:string = "Web inputs page for Automation Testing Practice";
+    const url:string = Constants.testWebInputURL;
+    await page.goto(url);
+    await expect(page).toHaveTitle(title);
+    const welcomeText:string  ="Web inputs page for Automation Testing Practice";
+    const webInputValue = new WebINPUT(page);
+    await webInputValue.verifyWelcomeText(welcomeText);
 
 })
 

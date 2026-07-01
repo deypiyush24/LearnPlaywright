@@ -1,0 +1,4 @@
+Success: Wed Jul 01 2026 10:43:51 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api/health-check
+{ success: true, status: 200, message: 'Notes API is Running' }
+Success: Wed Jul 01 2026 10:43:51 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api/notes
+{ success: true, status: 200, message: 'No notes found', data: [] }

@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "Login": "npx playwright test login.spec.ts",
+    "WebTestCase": "npx playwright test --grep @web",
+    "APITestCases": "npx playwright test apiTesting.spec.ts",
+    "Mobile Chrome": "npx playwright test --config= playwright.configMobilechrome.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

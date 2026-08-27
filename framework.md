@@ -25,4 +25,8 @@
 - docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins/jenkins:latest (--d Detached mode, -p map the port) 
 - [Jenkins Command](./LearningSnapshots/Jenkins.png)
 - [Through Docker host open the Jenkins image](./LearningSnapshots/Dockerhost.png)
-- docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+- docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
+- Install the Git inside Jenkins Containter (docker exec -it jenkins bash) and verify it git --version
+- Explaining ( docker exec -it jenkins bash ( Execute the inside docker jenkins(ImageName) terminal(linx so bash) ))
+- Once you deleted the Image all Operation you did inside the docker image is destroyed ( docker exec -it will be removed)
+

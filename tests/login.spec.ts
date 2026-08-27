@@ -59,8 +59,6 @@ test("Verify The Successfull Login", async ({ page }) => {
   // Visual Regression : 
   await expect(page.screenshot()).toMatchSnapshot();
 
-
-
   await loginPage.logutOfTheApplication();
 });
 

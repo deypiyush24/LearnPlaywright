@@ -1,0 +1,14 @@
+Success: Wed Jul 01 2026 10:42:40 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api/health-check
+{ success: true, status: 200, message: 'Notes API is Running' }
+{
+  success: true,
+  status: 200,
+  message: 'Profile updated successful',
+  data: {
+    id: '6a44a1c7ff667c029526e503',
+    name: 'Piyush',
+    email: 'testuser_1782882759595@gmail.com',
+    phone: '983456786',
+    company: 'XYZCompany'
+  }
+}

@@ -1,0 +1,2 @@
+Success: Wed Jul 01 2026 10:42:39 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api
+[object Promise]

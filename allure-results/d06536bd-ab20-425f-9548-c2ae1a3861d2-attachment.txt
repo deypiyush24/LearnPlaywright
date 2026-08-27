@@ -1,0 +1,6 @@
+Success: Wed Jul 01 2026 10:44:05 GMT+0530 (India Standard Time) User navigate to URL : https://practice.expandtesting.com/login
+Success: Wed Jul 01 2026 10:44:05 GMT+0530 (India Standard Time) Creds are :practice SuperSecretPassword!
+Success: Wed Jul 01 2026 10:44:05 GMT+0530 (India Standard Time) Login Button clicked Succesfully
+Success: Wed Jul 01 2026 10:44:06 GMT+0530 (India Standard Time) Verified the text You logged into a secure area!
+Success: Wed Jul 01 2026 10:44:06 GMT+0530 (India Standard Time) Verified the userName in the greeting practice
+Success: Wed Jul 01 2026 10:44:06 GMT+0530 (India Standard Time) Logout Button clicked Succesfully

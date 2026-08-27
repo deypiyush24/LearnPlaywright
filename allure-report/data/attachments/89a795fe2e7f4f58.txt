@@ -1,0 +1,3 @@
+Success: Wed Jul 01 2026 10:43:11 GMT+0530 (India Standard Time) User navigate to URL : https://practice.expandtesting.com/login
+Success: Wed Jul 01 2026 10:43:12 GMT+0530 (India Standard Time) Creds are :wrong_user SuperSecretPassword!
+Success: Wed Jul 01 2026 10:43:12 GMT+0530 (India Standard Time) Login Button clicked Succesfully

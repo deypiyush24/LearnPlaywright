@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "Login": "npx playwright test login.spec.ts",
+    "WebTestCase": "npx playwright test --grep @web",
+    "APITestCases": "npx playwright test apiTesting.spec.ts",
+    "Mobile Chrome": "npx playwright test --config= playwright.configMobilechrome.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,6 +18,7 @@
     "@azure/playwright": "^1.1.6",
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.0.1",
+    "allure-playwright": "^3.10.2",
     "pg": "^8.22.0"
   },
   "dependencies": {

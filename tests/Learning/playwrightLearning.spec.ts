@@ -1,8 +1,5 @@
 import{expect,test,Locator} from "@playwright/test";
-import{PageOperation} from "../src/pageObject/homePage";
-
-
-
+import{PageOperation} from "../../pageObject/homePage";
 
 test.describe(" locator functionality ", ()=>
 {

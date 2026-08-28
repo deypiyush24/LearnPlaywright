@@ -1,5 +1,5 @@
 import { test, request, expect } from "@playwright/test";
-import { Logger } from "../src/utils/log";
+import { Logger } from "../../utils/log";
 
 test.describe.configure({ mode: "serial" }); // This Feature help to control complete test Suit in Strict serial mode
 let authToken: string;

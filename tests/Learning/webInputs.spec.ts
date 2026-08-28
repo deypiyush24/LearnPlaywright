@@ -1,7 +1,7 @@
 import {test,expect} from "@playwright/test";
-import {Constants} from "../src/utils/constants";
-import {WebINPUT} from "../src/pageObject/webInput";
-import {WebInputTestData} from "../src/testData/webInputTestData"
+import {Constants} from "../../utils/constants";
+import {WebINPUT} from "../../pageObject/webInput";
+import {WebInputTestData} from "../../testData/webInputTestData"
 
 
 

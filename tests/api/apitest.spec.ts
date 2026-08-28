@@ -1,5 +1,5 @@
 import{test,expect,request} from "@playwright/test";
-import{Logger} from "../src/utils/log"
+import{Logger} from "../../utils/log"
 
 
 test("Health check of an API", async({request,page})=>{

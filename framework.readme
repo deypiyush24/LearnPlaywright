@@ -1,1 +1,24 @@
 ![Describe feature ](LearningSnapshots/describeFeature.png)
+Frame Work Structure :
+my-playwright-project/
+├── .github/
+│   └── workflows/
+│       └── playwright.yml         # CI/CD pipeline configuration
+├── page-objects/                  # Page Object Model (POM) classes
+│   ├── LoginPage.ts
+│   └── DashboardPage.ts
+├── tests/                         # Test suites / spec files
+│   ├── auth/
+│   │   └── login.spec.ts
+│   └── dashboard/
+│       └── dashboard.spec.ts
+├── fixtures/                      # Custom test fixtures (POM injection, API helpers)
+│   └── baseTest.ts
+├── test-data/                     # Environment data, JSON mocks, static data
+│   ├── env.dev.json
+│   └── users.json
+├── utils/                         # Helper functions, DB setup, custom loggers
+│   └── apiHelper.ts
+├── playwright.config.ts           # Global Playwright configuration
+├── package.json                   # Dependencies and npm scripts
+└── .env                           # Environment variables (secrets, base URLs)

@@ -13,7 +13,8 @@
     "@azure/playwright": "^1.1.6",
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.4.0",
-    "pg": "^8.22.0"
+    "pg": "^8.22.0",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

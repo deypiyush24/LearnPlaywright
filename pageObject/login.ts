@@ -9,14 +9,14 @@ export class Login {
   private readonly loginButton: Locator;
   private readonly loginPageText:Locator;
   private readonly greetingTextToUser:Locator;
-   private readonly logutButton:Locator;
-    private readonly logutSuccessMessage:Locator;
+  private readonly logutButton:Locator;
+   private readonly logutSuccessMessage:Locator;
      private readonly wrongCredsMessage:Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.welcomeText = page.getByRole("heading", {
-      name: "Test Login page for Automation Testing Practice",
+    name: "Test Login page for Automation Testing Practice",
     });
     this.userName = page.getByRole("textbox", { name: "Username" });
     this.password = page.getByRole("textbox", { name: "Password" });

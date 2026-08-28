@@ -24,7 +24,21 @@ using test.describe.skip will skip all the tests inside that block without needi
 
 */
 
+/* 
+
+Hooks are test.beforeEach(async()=>{}),test.AfterEach(async()=>{}),test.beforeAll(async()=>{}),test.afterAll(async()=>{}) They don't need Title as input they are just
+async() value 
+
+beforeAll & afterAll (always Written out of Test describe); and valid for the Test File 
+
+
+*/
+
 // Check The Readme for the Describe Report Snapshot
+
+// Configure the Test describle Feture for particular Value
+test.describe.configure({mode:"serial",retries: 2, timeout:10000});
+
 
 test.describe(`@Login functionality testing`, async () => {
   test.beforeEach("Test Setup is done", async ({ page }) => {

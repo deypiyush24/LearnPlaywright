@@ -9,7 +9,8 @@ let password: string;
 
 const baseAPIURL: string = process.env.BASE_API_URL!; // The ! assert that value is never null
 
-test.describe("Authenticate the user with for the resources", async () => {
+test.describe("Authenticate the user with for the resources", async () => 
+  {
   test.beforeEach("Validate the API's Health is ok", async ({ request }) => {
     const getHealthCheckURL = baseAPIURL + "/health-check";
     Logger.successinfo("The Base URL is :" + getHealthCheckURL);
@@ -17,9 +18,10 @@ test.describe("Authenticate the user with for the resources", async () => {
     expect(response.ok()).toBeTruthy();
     const responseBody = await response.json();
     console.log(responseBody);
+
   });
 
-  test("Login with email and Password", async ({ request }) => {
+  test("Login with email and Password", async ({ request,page }) => {
     const postTheURLToRegeisterTheUser = baseAPIURL + "/users/register";
     Logger.successinfo("The Base URL is :" + postTheURLToRegeisterTheUser);
     emailId = `testuser_${Date.now()}@gmail.com`;
@@ -28,19 +30,30 @@ test.describe("Authenticate the user with for the resources", async () => {
     Logger.successinfo("Email ID is :" + emailId);
     Logger.successinfo("Password ID is :" + password);
 
-    const payloadforUserResgisteration = {
+    // This help to ByPass the Login credentials
+    page.addInitScript( value => {
+      window.localStorage.setItem("token",value)
+    },authToken);
+
+    const payloadforUserResgisteration = 
+    {
       name: name,
       email: emailId,
       password: password,
     };
 
-    const response = await request.post(postTheURLToRegeisterTheUser, {
+    // Here it need just the Post request with Post URL and Json Payload
+    const response = await request.post(postTheURLToRegeisterTheUser, 
+    {
       data: payloadforUserResgisteration,
     });
     await expect(response.ok()).toBeTruthy();
     await expect(response.status()).toBe(201);
+
     const responseBody = await response.json(); // This Json Format
+    
     console.log(responseBody);
+
     await expect(responseBody.message).toBe(
       "User account created successfully",
     );
@@ -55,13 +68,18 @@ test.describe("Authenticate the user with for the resources", async () => {
       password: password,
     };
 
-    const responseForUserLogin = await request.post(postTheURLToLogintheUser, {
-      data: payloadForTheUserLogin,
-    });
-    await expect(responseForUserLogin.ok()).toBeTruthy();
-    await expect(responseForUserLogin.status()).toBe(200);
+    const responseForUserLogin = await request.post(postTheURLToLogintheUser, 
+    {
+      data: payloadForTheUserLogin
+    }
+    );
+    expect(responseForUserLogin.ok()).toBeTruthy();
+    expect(responseForUserLogin.status()).toBe(200);
+
     const responseBodyForUserLogin = await responseForUserLogin.json(); // This Json Format
+
     console.log(responseBodyForUserLogin);
+
     authToken = responseBodyForUserLogin.data.token;
     console.log("Successfully captured token:", authToken);
   });

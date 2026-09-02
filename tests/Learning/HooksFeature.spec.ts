@@ -40,7 +40,8 @@ beforeAll & afterAll (always Written out of Test describe); and valid for the Te
 test.describe.configure({mode:"serial",retries: 2, timeout:10000});
 
 
-test.describe(`@Login functionality testing`, async () => {
+test.describe(`@Login functionality testing`, async () => 
+  {
   test.beforeEach("Test Setup is done", async ({ page }) => {
     const titleOfThePage: string =
       "Test Login Page for Automation Testing Practice";

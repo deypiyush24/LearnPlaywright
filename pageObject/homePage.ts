@@ -1,7 +1,9 @@
 import { Page, Locator,expect } from "@playwright/test";
 export class PageOperation {
+
+    private timeOutforTheClass: number = 10000;  // A class should not have const or let key word , private readonly , just private 
     private readonly primaryButton: Locator;
-    private readonly toggleButton: Locator;
+    private toggleButton: Locator;
     private readonly homeLink: Locator;
     private readonly productLink: Locator;
     private readonly checkBox: Locator;
@@ -24,7 +26,7 @@ export class PageOperation {
 
     async clickTheCheckBox(): Promise<void>
     {
-        expect(this.checkBox).toBeEnabled({timeout:5000});
+        expect(this.checkBox).toBeEnabled({timeout:this.timeOutforTheClass});
         await this.checkBox.check();
     }
 }

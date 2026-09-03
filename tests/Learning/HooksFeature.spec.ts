@@ -39,6 +39,11 @@ beforeAll & afterAll (always Written out of Test describe); and valid for the Te
 // Configure the Test describle Feture for particular Value
 test.describe.configure({mode:"serial",retries: 2, timeout:10000});
 
+test.beforeAll("All BEFORE ALL",async({page,request,context})=>
+{
+ await page.goto("hellow world");
+
+})
 
 test.describe(`@Login functionality testing`, async () => 
   {

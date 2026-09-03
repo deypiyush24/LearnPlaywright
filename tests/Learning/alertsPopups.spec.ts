@@ -4,10 +4,6 @@ import { Logger as log } from "../../utils/log";
 /*
 1 )How to handle child windows
 */
-
-
-
-
 async function waitForTheLocatorVisibleAndThenClick(locator:Locator, waitTime:number ):Promise<void> 
 {
 

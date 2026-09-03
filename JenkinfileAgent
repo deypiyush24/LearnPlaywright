@@ -1,0 +1,193 @@
+
+/*
+
+Uses Playwright's built-in sharding flag (--shard=x/y).
+
+Distributes High-Risk tests across all 3 agents in parallel (1/3, 2/3, 3/3).
+
+If any High-Risk shard fails, the pipeline aborts immediately.
+
+If all 3 shards pass, it distributes Medium-Risk tests across the 3 agents in parallel.
+
+If all Medium shards pass, it repeats the process for Low-Risk tests.
+
+*/
+
+
+
+
+
+
+pipeline {
+    agent none
+
+    options {
+        timeout(time: 90, unit: 'MINUTES')
+        ansiColor('xterm')
+    }
+
+    stages  // Here Every thing will Run in sequencelly 
+    {
+        // ==========================================
+        // 1. HIGH-RISK STAGE (PARALLEL ACROSS 3 AGENTS)
+        // ==========================================
+        stage('High-Risk Tests') {
+            parallel {
+                stage('High - Agent 1') {
+                    agent {
+                        docker {
+                            label 'agentOne'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        echo ' copy the code to Jenkins Server to build'
+                        checkout scm
+                        echo 'Installing project dependencies...'
+                        sh 'npm ci'
+                        echo 'Running the test in shared Mode'
+                        sh 'npx playwright test --grep "@high" --shard=1/3'
+                    }
+                }
+                stage('High - Agent 2') {
+                    agent {
+                        docker {
+                            label 'agentTwo'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@high" --shard=2/3'
+                    }
+                }
+                stage('High - Agent 3') {
+                    agent {
+                        docker {
+                            label 'agentThree'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@high" --shard=3/3'
+                    }
+                }
+            }
+        }
+
+        // ==========================================
+        // 2. MEDIUM-RISK STAGE (PARALLEL ACROSS 3 AGENTS)
+        // ==========================================
+        stage('Medium-Risk Tests') {
+            parallel {
+                stage('Medium - Agent 1') {
+                    agent {
+                        docker {
+                            label 'agentOne'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@medium" --shard=1/3'
+                    }
+                }
+                stage('Medium - Agent 2') {
+                    agent {
+                        docker {
+                            label 'agentTwo'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@medium" --shard=2/3'
+                    }
+                }
+                stage('Medium - Agent 3') {
+                    agent {
+                        docker {
+                            label 'agentThree'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@medium" --shard=3/3'
+                    }
+                }
+            }
+        }
+
+        // ==========================================
+        // 3. LOW-RISK STAGE (PARALLEL ACROSS 3 AGENTS)
+        // ==========================================
+        stage('Low-Risk Tests') {
+            parallel {
+                stage('Low - Agent 1') {
+                    agent {
+                        docker {
+                            label 'agentOne'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@low" --shard=1/3'
+                    }
+                }
+                stage('Low - Agent 2') {
+                    agent {
+                        docker {
+                            label 'agentTwo'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@low" --shard=2/3'
+                    }
+                }
+                stage('Low - Agent 3') {
+                    agent {
+                        docker {
+                            label 'agentThree'
+                            image 'mcr.microsoft.com/playwright:v1.45.0-jammy'
+                            args '-u root:root --ipc=host'
+                        }
+                    }
+                    steps {
+                        checkout scm
+                        sh 'npm ci'
+                        sh 'npx playwright test --grep "@low" --shard=3/3'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo 'Pipeline failed! Check the failed stage and shard for errors.'
+        }
+        success {
+            echo 'All shards for High, Medium, and Low risk suites passed successfully!'
+        }
+    }
+}

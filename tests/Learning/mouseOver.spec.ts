@@ -51,7 +51,31 @@ await source.dragTo(target);
 // 3. Verify the drop occurred (drop zone text changes to 'Dropped!')
 await expect(target).toContainText('Dropped!');
 
+
+// Here we Customise the action Time out
+
+const subMitButton = page.getByRole('button', { name: 'Submit' });
+
+
+// Using the function
+
+await waitingForThaAPplication(subMitButton,5000);
+
+// Custom timeout of 5 seconds on click
+await page.getByRole('button', { name: 'Submit' }).click({ timeout: 5000 });
+
+// Custom timeout of 7 seconds on fill
+await page.getByLabel('Search').fill('Playwright', { timeout: 7000 });
+
   
 });
+
+
+async function waitingForThaAPplication( locator:Locator, waitTime : number ):Promise<void>
+{
+  await expect(locator).toBeVisible({timeout : waitTime});
+  await locator.click({timeout : waitTime});
+  await locator.fill("Piyush", {timeout : waitTime});
+}
 
 

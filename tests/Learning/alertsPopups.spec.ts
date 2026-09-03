@@ -57,30 +57,21 @@ test(`@WebTootl : DialogBox`, async ({ page }) => {
 
 
 
-test("Child Windows ", async ({ page }) => {
+test("Child Windows ", async ({ page }) => 
+  
+{
+ const [newPage] = await Promise.all([
+  page.waitForEvent("popup"),
+  page.getByRole("button",{name:"New Tab"}),
 
-// 1. Wait for the popup event while clicking the trigger element
-const [newTab] = await Promise.all([
-  page.waitForEvent('popup'),
-  page.getByRole("button",{name : "New Tab"}).click(),
-]);
+ ]);
 
-
-
-const [newPage] = await Promise.all(
-[
- page.waitForEvent("popup"),
- page.getByRole("button",{name : "New Tab"}).click(),
-]
-);
-
-// 2. Wait for the new tab to finish loading
-await newPage.waitForLoadState("networkidle");
+ await newPage.waitForLoadState("networkidle");
 
 // 3. Interact with the new tab
-console.log(`New Tab Title: ${await newPage.title()}`);
-// await expect(newTab).toHaveURL(/expected-url-part/);
-// await newTab.locator('#username').fill('Piyush');
+console.log(`New Tab with in that browser: ${await newPage.title()}`);
+await expect(newPage).toHaveURL(/expected-url-part/);
+await newPage.locator('#username').fill('Piyush');
 
 // 4. Close the new tab and switch focus back to the original page
 await newPage.close();
@@ -88,12 +79,26 @@ await page.bringToFront();
 
 });
 
+test("Popup To new Browser complete", async({context,page})=>
+{
+  const [newTab] = await Promise.all(
+    [
+      context.waitForEvent('page'),
+      page.getByRole("button",{name:"Popup Windows"}),
+
+    ]
+  );
+
+  await newTab.waitForLoadState("domcontentloaded");
+
+})
+
 
 
 test("Handle  Simple ALerts Popups", async ({ page }) => {
   // Make the PlaywrightUnderstand there is event going to happen
 
-  page.once("dialog", async (dialog) => {
+  await page.once("dialog", async (dialog) => {
     console.log(`Alert message: ${dialog.message()}`);
     await dialog.accept();
   });
@@ -120,7 +125,7 @@ test("Handle Prompt ALerts Popups", async ({ page }) => {
   });
    const dialogueBox = await page.screenshot({ 
     fullPage: true,
-    path: 'screenshots/dialogueBox.png',
+    path: 'screenshots/dialogueBox.png',   /// Path here 
     });
    await test.info().attach("dialogueBOX", {
       body: dialogueBox,

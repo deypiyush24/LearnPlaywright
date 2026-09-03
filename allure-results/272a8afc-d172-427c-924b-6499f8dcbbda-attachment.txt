@@ -1,0 +1,28 @@
+Success: Wed Jul 01 2026 13:16:58 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api/health-check
+{ success: true, status: 200, message: 'Notes API is Running' }
+Success: Wed Jul 01 2026 13:16:58 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api/users/register
+Success: Wed Jul 01 2026 13:16:58 GMT+0530 (India Standard Time) Email ID is :testuser_1782892018890@gmail.com
+Success: Wed Jul 01 2026 13:16:58 GMT+0530 (India Standard Time) Password ID is :virginMoney
+{
+  success: true,
+  status: 201,
+  message: 'User account created successfully',
+  data: {
+    id: '6a44c5f3ff667c029526e960',
+    name: 'Test Automation User',
+    email: 'testuser_1782892018890@gmail.com'
+  }
+}
+Success: Wed Jul 01 2026 13:16:59 GMT+0530 (India Standard Time) The Base URL is :https://practice.expandtesting.com/notes/api/users/login
+{
+  success: true,
+  status: 200,
+  message: 'Login successful',
+  data: {
+    id: '6a44c5f3ff667c029526e960',
+    name: 'Test Automation User',
+    email: 'testuser_1782892018890@gmail.com',
+    token: 'b3e1eb0d7faf4241a4c1b86c0c546ea712617b9cd9a948c58aeb4e79ca68a497'
+  }
+}
+Successfully captured token: b3e1eb0d7faf4241a4c1b86c0c546ea712617b9cd9a948c58aeb4e79ca68a497

@@ -1,5 +1,6 @@
 import { test, request, expect } from "@playwright/test";
 import { Logger } from "../../utils/log";
+import { truncateSync } from "node:fs";
 
 test.describe.configure({ mode: "serial" }); // This Feature help to control complete test Suit in Strict serial mode
 let authToken: string;
@@ -42,6 +43,8 @@ test.describe("Authenticate the user with for the resources", async () =>
       password: password,
     };
 
+
+
     // Here it need just the Post request with Post URL and Json Payload
     const response = await request.post(postTheURLToRegeisterTheUser, 
     {
@@ -82,6 +85,51 @@ test.describe("Authenticate the user with for the resources", async () =>
 
     authToken = responseBodyForUserLogin.data.token;
     console.log("Successfully captured token:", authToken);
+  });
+
+   test("Login with email and PasswordUpdate", async ({ request,page }) => {
+    const postTheURLToRegeisterTheUser = baseAPIURL + "/users/register";
+    Logger.successinfo("The Base URL is :" + postTheURLToRegeisterTheUser);
+    emailId = `testuser_${Date.now()}@gmail.com`;
+    password = "virginMoney";
+    name = "Test Automation User";
+    Logger.successinfo("Email ID is :" + emailId);
+    Logger.successinfo("Password ID is :" + password);
+
+    // // This help to ByPass the Login credentials
+    // page.addInitScript( value => {
+    //   window.localStorage.setItem("token",value)
+    // },authToken);
+  const payloadforUserResgisteration = 
+    {
+      name: name,
+      email: emailId,
+      password: password,
+    };
+     const headerParameters = {
+      "x-auth-token": authToken,  // Any custom Header should be enclosed in ""
+      accept: "application/json",
+    };
+  
+
+    const response = await request.post(postTheURLToRegeisterTheUser,{ 
+      data: payloadforUserResgisteration,
+      headers : headerParameters,
+      params : 
+      {
+        x : "truncateSync",
+        b: "ghhuy",
+      }
+    } );
+
+    await expect(response.ok()).toBeTruthy();
+
+    expect(response.status()).toBe(200);
+
+    const responseJson:JSON  = await response.json();
+
+    console.log(JSON.stringify(responseJson,null,2));
+
   });
 
   test("Get all the Notes", async ({ request }) => {

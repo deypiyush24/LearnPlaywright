@@ -6,7 +6,6 @@ type loginFixtures = {
 };
 
 
-
 export const test = base.extend<loginFixtures>(
 
     // Here we start the Object Defined in loginFixture

@@ -52,36 +52,51 @@ test("Dyanamic table", async ({ page }) => {
     await page.getByText("Disk space of Firefox process: ").innerText()
   ).split(": ")[1];
 
-  const tableHeader:Locator = page.locator("#headers");
-  const column =tableHeader.locator("th");
+  const tableHeader: Locator = page.locator("#headers");
+  const column = tableHeader.locator("th");
   const columnCount = await column.count();
 
-  const tableBody:Locator = page.locator("#rows");
-  const rows =tableBody.locator("tr");
+  const tableBody: Locator = page.locator("#rows");
+  const rows = tableBody.locator("tr");
   const rowsCount = await rows.count();
 
   console.log(`Row count ${rowsCount}: Coll count : ${columnCount}`);
 
-  const mapOfValue = new Map<string,string>();
+  const mapOfValue = new Map<string, string>();
 
-  for(let i= 0; i<rowsCount ; i++)
-  {
+  for (let i = 0; i < rowsCount; i++) {
     const currentRow = rows.nth(i);
-    for(let j=0 ; j<columnCount; j++)
-    {
+    for (let j = 0; j < columnCount; j++) {
       const value = await currentRow.locator("td").nth(j).innerText();
-      if(value === value1 || value === value2 ||value === value3 ||value === value4)
-      {
+      if (
+        value === value1 ||
+        value === value2 ||
+        value === value3 ||
+        value === value4
+      ) {
         const nameOfBrowser = await currentRow.locator("td").nth(0).innerText();
-         console.log(nameOfBrowser + ` ${value}`);
-         mapOfValue.set(value,nameOfBrowser);
+        console.log(nameOfBrowser + ` ${value}`);
+        mapOfValue.set(value, nameOfBrowser);
       }
-
     }
-
   }
-console.log(mapOfValue);
+  console.log(mapOfValue);
+});
 
- 
- 
+test("Handle PageNation ", async ({ page }) => {
+  const pages = page.locator("#pagination li a");
+  const totalPages = await pages.count();
+
+  for (let i = 0; i < totalPages; i++) {
+    await pages.nth(i).click();
+
+    // Read data from the rows on the active page
+    const rows = page.locator("#productTable tbody tr");
+    const rowCount = await rows.count();
+
+    for (let j = 0; j < rowCount; j++) {
+      const name = await rows.nth(j).locator("td").nth(1).innerText();
+      console.log(name);
+    }
+  }
 });

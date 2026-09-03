@@ -1,5 +1,5 @@
 
-enum definedColourCode{
+export enum definedColourCode{
     Red = "\x1b[31m",
     Green = "\x1b[32m", //Green Is used to Show the Pass Status
     Yellow = "\x1b[33m", // Yellow is used to show the Compare the Data

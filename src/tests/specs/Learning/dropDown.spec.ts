@@ -17,6 +17,8 @@ test("DropDown with One Selections", async ({ page }) => {
     name: "Playground",
     exact: true,
   });
+
+
   await expect(playgroundHeadingLocator).toBeVisible({ timeout: 500 });
   console.log("Playground Heading is visible");
   const programingLang: Locator = page.getByLabel(

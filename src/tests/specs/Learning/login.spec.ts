@@ -1,14 +1,13 @@
 import { test, expect } from "@playwright/test";
-import { Login } from "../../pageObject/login";
-import { Constants } from "../../utils/constants";
-import { Logger } from "../../utils/log";
-import { loginTestData } from "../../testData/loginData";
+import { Login } from "../../../pageObject/login";
+import { Constants } from "../../../framework/utils/constants";
+import { Logger } from "../../../framework/utils/log";
+import { loginTestData } from "../../resources/testData/loginData";
 
 let loginPage: Login;
 
 test.beforeEach("Test Setup is done", async ({ page }) => {
-  const titleOfThePage: string =
-    "Test Login Page for Automation Testing Practice";
+  const titleOfThePage: string ="Test Login Page for Automation Testing Practice";
   const welcomeText: string = "Test Login page for Automation Testing Practice";
   const url: string = Constants.testLoginurl;
 
@@ -73,9 +72,7 @@ test(`@invalidUserName Invalid Username`, async ({ page }) => {
   const password = passwordText!.split(":")[1].trim(); // Here Values should be not null
   await loginPage.enterTheUserNameAndPassword(userName, password);
   await loginPage.clickOnTheLoginButton();
-  await loginPage.verifyTheAlertForWrongCredentials(
-    "Your password is invalid!",
-  );
+  await loginPage.verifyTheAlertForWrongCredentials("Your password is invalid!");
 });
 
 test(`@invalidPassword Invalid Password`, async ({ page }) => {

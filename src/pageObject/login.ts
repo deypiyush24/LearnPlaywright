@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { Logger } from "../utils/log";
+import { Logger } from "../framework/utils/log";
 
 export class Login {
   private readonly page: Page;
@@ -15,10 +15,8 @@ export class Login {
 
   constructor(page: Page) {
     this.page = page;
-    this.welcomeText = page.getByRole("heading", {
-    name: "Test Login page for Automation Testing Practice",
-    });
-    this.userName = page.getByRole("textbox", { name: "Username" });
+    this.welcomeText = page.getByRole("heading", {name: "Test Login page for Automation Testing Practice"});
+    this.userName = page.getByRole("textbox", { name: "Username" ,exact: true});
     this.password = page.getByRole("textbox", { name: "Password" });
     this.loginButton = page.getByRole("button", { name: "Login" });
     this.loginPageText = page.getByText("You logged into a secure area!");
@@ -29,7 +27,7 @@ export class Login {
   }
 
   public async verifyWelcomeText(expected: string) {
-    await expect(this.welcomeText).toHaveText(expected);
+    await expect(this.welcomeText).toHaveText(expected); 
   }
 
   public async enterTheUserNameAndPassword(userName: string,password: string) 

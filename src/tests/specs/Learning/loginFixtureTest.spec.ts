@@ -1,4 +1,4 @@
-import{test} from "../../fixtures/loginFixture";
+import{test} from "../../../framework/fixtures/loginFixture";
 
 
 test("Verify the login", async({page})=>

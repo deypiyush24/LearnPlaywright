@@ -1,12 +1,6 @@
 import { test, expect, Locator, Page, Expect } from "@playwright/test";
-import { Logger as log } from "../../utils/log";
+import { Logger as log } from "../../../framework/utils/log";
 
-<<<<<<< HEAD
-/*
-1 )How to handle child windows
-*/
-=======
->>>>>>> b488d9e (alert)
 async function waitForTheLocatorVisibleAndThenClick(locator:Locator, waitTime:number ):Promise<void> 
 {
 
@@ -14,7 +8,6 @@ await expect(locator).toBeVisible({timeout: waitTime});
 await locator.click();
 
 }
-
 
 const selectURL = process.env.playwrightAutomation!;
 
@@ -25,9 +18,8 @@ test.beforeEach(async ({ page }) => {
       "Automation Testing Practice: PlaywrightPractice",
     );
     const titleValue = await page.title();
+    test.info().attach(titleValue);
 
-    // console.log(titleValue);
-    // console.log(`${test.info().title}`);
   });
 });
 
@@ -41,10 +33,14 @@ test(`@WebTootl : DialogBox`, async ({ page }) => {
   });
 
   await test.step("When we click on dialogue box ", async () => {
+
+    // Concept of Dialogue box 
     const locatorForDialogBox = page.locator("//button[@id='alertBtn']");
-    page.once("dialog", async (dialog) => {
-      console.log(`Alert message: ${dialog.message()}`);
-      await dialog.accept();
+
+    page.once("dialog", async(dialog)=>
+    {
+      console.log(`Alert avlue ${dialog.message()}`)
+      dialog.accept();
     });
 
     await locatorForDialogBox.click();
@@ -52,22 +48,11 @@ test(`@WebTootl : DialogBox`, async ({ page }) => {
 });
 
 
-<<<<<<< HEAD
-
-
-
-
 test("Child Windows ", async ({ page }) => 
-  
 {
  const [newPage] = await Promise.all([
   page.waitForEvent("popup"),
-  page.getByRole("button",{name:"New Tab"}),
-=======
-test("Child Windows ", async ({ page }) => {
->>>>>>> b488d9e (alert)
-
- ]);
+  page.getByRole("button",{name:"New Tab"})]);
 
  await newPage.waitForLoadState("networkidle");
 

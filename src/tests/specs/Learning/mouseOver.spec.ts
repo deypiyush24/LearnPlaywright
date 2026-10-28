@@ -1,5 +1,5 @@
 import { test, Locator, expect } from "@playwright/test";
-import {MouseOver} from "../../pageObject/MouseOver";
+import {MouseOver} from "../../../pageObject/MouseOver";
 
 test("moverOverActions", async ({ page }) => {
   await page.goto(

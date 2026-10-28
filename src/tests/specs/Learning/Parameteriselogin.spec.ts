@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { Login } from "../../pageObject/login";
-import { Constants } from "../../utils/constants";
-import { Logger } from "../../utils/log";
-import { loginTestData } from "../../testData/loginData";
+import { Login } from "../../../pageObject/login";
+import { Constants } from "../../../framework/utils/constants";
+import { Logger } from "../../../framework/utils/log";
+import { loginTestData } from "../../resources/testData/loginData";
 
 let loginPage: Login;
 

@@ -1,9 +1,12 @@
 import { test, expect, Locator, Page, Expect } from "@playwright/test";
 import { Logger as log } from "../../utils/log";
 
+<<<<<<< HEAD
 /*
 1 )How to handle child windows
 */
+=======
+>>>>>>> b488d9e (alert)
 async function waitForTheLocatorVisibleAndThenClick(locator:Locator, waitTime:number ):Promise<void> 
 {
 
@@ -49,6 +52,7 @@ test(`@WebTootl : DialogBox`, async ({ page }) => {
 });
 
 
+<<<<<<< HEAD
 
 
 
@@ -59,6 +63,9 @@ test("Child Windows ", async ({ page }) =>
  const [newPage] = await Promise.all([
   page.waitForEvent("popup"),
   page.getByRole("button",{name:"New Tab"}),
+=======
+test("Child Windows ", async ({ page }) => {
+>>>>>>> b488d9e (alert)
 
  ]);
 
